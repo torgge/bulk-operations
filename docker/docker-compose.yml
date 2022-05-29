@@ -1,0 +1,54 @@
+version: "3.8"
+
+networks:
+  lfc-network:
+    driver: bridge
+
+volumes:
+  bulk-rabbitmq-volume-data:
+    external: false
+  bulk-rabbitmq-volume-log:
+    external: false
+  db_home:
+    external: false
+
+services:
+  bulk-rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: bulk-rabbitmq
+    hostname: bulk-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./docker-conf/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./docker-conf/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - bulk-rabbitmq-volume-data:/var/lib/rabbitmq/
+      - bulk-rabbitmq-volume-log:/var/log/rabbitmq/
+    networks:
+      - lfc-network
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+  db:
+    image: postgres:10
+    container_name: bulk-database
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_home:/var/lib/postgresql/data
+      - ./docker-conf/postgresql/create-table.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./docker-conf/postgresql/fill-tables.sql:/docker-entrypoint-initdb.d/fill_tables.sql
+    environment:
+      - DATABASE_PORT=5432
+      - DATABASE_DIALECT=postgresql
+      - POSTGRES_DB=bulk_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
