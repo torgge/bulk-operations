@@ -1,0 +1,19 @@
+spring:
+
+  application:
+    name: rabbitmq-producer-basic
+
+  server:
+    port: 8001
+
+  rabbitmq:
+    host: localhost
+      port: 5672
+      username: admin
+      password: admin
+    order:
+      queue: ORDER-QUEUE
+      exchange: ORDER-EXCHANGE
+      routing-key: ORDER-ROUTING-KEY
+      dlq-exchange: ORDER-EXCHANGE-DLQ
+      dlq-routing-key: ORDER-DLQ-ROUTING-KEY
