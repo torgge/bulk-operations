@@ -1,14 +1,17 @@
 package com.bonespirito.bulkoperations.domain
 
+import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
-data class Order(
+@Serializable
+data class OrderPayloadRequest(
     val id: Long,
     val items: List<Material>?,
     val createdAt: LocalDate
 )
 
-data class Material(
+@Serializable
+data class MaterialPayloadRequestItem(
     val skuCode: String,
     val quantity: Int,
     val businessUnit: String

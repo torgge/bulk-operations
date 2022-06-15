@@ -1,19 +1,25 @@
 spring:
-
   application:
     name: rabbitmq-producer-basic
-
   server:
     port: 8001
-
   rabbitmq:
     host: localhost
-      port: 5672
-      username: admin
-      password: admin
+    port: 5672
+    username: admin
+    password: admin
     order:
       queue: ORDER-QUEUE
       exchange: ORDER-EXCHANGE
       routing-key: ORDER-ROUTING-KEY
-      dlq-exchange: ORDER-EXCHANGE-DLQ
+      dlq-queue: ORDER-DLQ-QUEUE
+      dlq-exchange: ORDER-DLQ-EXCHANGE
       dlq-routing-key: ORDER-DLQ-ROUTING-KEY
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: admin
+    password: admin
+    url: jdbc:postgresql://localhost/postgres
+    platform: postgres
+    initialization-mode: always
+    continue-on-error: true
