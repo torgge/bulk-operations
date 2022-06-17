@@ -15,6 +15,14 @@ spring:
       dlq-queue: ORDER-DLQ-QUEUE
       dlq-exchange: ORDER-DLQ-EXCHANGE
       dlq-routing-key: ORDER-DLQ-ROUTING-KEY
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 3
+          max-interval: 10s
+          multiplier: 1
   datasource:
     driver-class-name: org.postgresql.Driver
     username: admin

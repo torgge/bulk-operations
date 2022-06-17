@@ -1,11 +1,11 @@
 package com.bonespirito.bulkoperations.domain
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class Order(
     val id: Long,
     val items: List<Material>?,
-    val createdAt: LocalDate
+    val createdAt: LocalDateTime
 )
 
 data class Material(
