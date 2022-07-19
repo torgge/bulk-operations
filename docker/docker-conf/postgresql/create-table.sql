@@ -1,4 +1,7 @@
 
+
+CREATE SCHEMA bulk_db;
+
 CREATE TABLE IF NOT EXISTS po (
    order_id INT NOT NULL,
    created_at timestamp,

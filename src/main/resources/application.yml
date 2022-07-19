@@ -24,10 +24,22 @@ spring:
           max-interval: 10s
           multiplier: 1
   datasource:
-    driver-class-name: org.postgresql.Driver
     username: admin
     password: admin
-    url: jdbc:postgresql://localhost/postgres
-    platform: postgres
-    initialization-mode: always
-    continue-on-error: true
+    url: jdbc:postgresql://localhost:5432/postgres
+    hikari:
+      connection-timeout: 2000
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update # When you launch the application for the first time - switch "none" at "create"
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+    properties:
+      hibernate:
+        default_schema: bulk_db
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
