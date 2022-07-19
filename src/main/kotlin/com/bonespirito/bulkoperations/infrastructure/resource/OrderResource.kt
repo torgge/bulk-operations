@@ -1,7 +1,7 @@
 package com.bonespirito.bulkoperations.infrastructure.resource
 
 import com.bonespirito.bulkoperations.application.RabbitMessageService
-import com.bonespirito.bulkoperations.domain.Order
+import com.bonespirito.bulkoperations.domain.model.Order
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus

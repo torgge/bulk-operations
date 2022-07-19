@@ -1,8 +1,8 @@
 package com.bonespirito.bulkoperations.application
 
-import com.bonespirito.bulkoperations.domain.Order
-import com.bonespirito.bulkoperations.domain.OrderPayloadRequest
-import com.bonespirito.bulkoperations.domain.toPayload
+import com.bonespirito.bulkoperations.domain.model.Order
+import com.bonespirito.bulkoperations.domain.payload.OrderPayloadRequest
+import com.bonespirito.bulkoperations.utils.toPayload
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
