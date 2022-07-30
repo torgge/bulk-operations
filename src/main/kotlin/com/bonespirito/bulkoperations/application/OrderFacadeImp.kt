@@ -18,7 +18,7 @@ class OrderFacadeImp(
     private val log = LoggerFactory.getLogger(javaClass)
 
     override fun process(order: Order) {
-        log.info("Trying to process an order $order")
+        log.info("\nTrying to process an order $order\n")
         val processedOrder = orderService.save(order)
         messageProduce(processedOrder)
     }

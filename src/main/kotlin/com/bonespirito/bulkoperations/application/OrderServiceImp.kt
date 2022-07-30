@@ -9,6 +9,7 @@ import com.bonespirito.bulkoperations.utils.toVO
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class OrderServiceImp(
@@ -18,24 +19,32 @@ class OrderServiceImp(
 
     private val log = LoggerFactory.getLogger(javaClass)
 
+    @Transactional
     override fun save(order: Order): Order {
-        log.info("Trying to save an order $order")
+        log.info("\nTrying to save an order $order \n")
 
-        val orderPersistent = order.toPersistent()
+        try {
+            val orderPersistent = order.toPersistent()
 
-        val orderResult = orderRepository.save(orderPersistent)
+            val orderResult = orderRepository.save(orderPersistent)
 
-        val materialsPersistent = order.items.map {
-            it.copy(
-                orderId = orderResult.id
-            ).toPersistent()
+            val materialsPersistent = order.items.map {
+                it.copy(
+                    orderId = orderResult.id
+                ).toPersistent()
+            }
+
+            val materialsResult = materialRepository.saveAll(materialsPersistent)
+
+            return orderPersistent.toVO( materialsResult.toList() )
+
+        } catch (e:Error) {
+            log.error("${e.message}")
+            throw Exception(e)
         }
-
-        val materialsResult = materialRepository.saveAll(materialsPersistent)
-
-        return orderPersistent.toVO( materialsResult.toList() )
     }
 
+    @Transactional
     override fun bulkUpdate(orders: List<Order>): List<Order> {
         log.info("Trying to save an order list $orders")
 

@@ -39,7 +39,7 @@ fun Material.toPayload() = MaterialPayloadRequestItem (
 )
 
 fun Material.toPersistent() = MaterialPersistent(
-    id = this.id!!,
+    id = this.id,
     orderId = this.orderId,
     skuCode = this.skuCode,
     quantity = this.quantity,

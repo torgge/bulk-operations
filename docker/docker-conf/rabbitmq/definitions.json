@@ -37,27 +37,26 @@
   "policies": [],
   "queues": [
     {
-      "name": "message-out-queue",
+      "name": "ORDER-QUEUE",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {
-        "x-queue-type": "classic"
+        "x-dead-letter-exchange": "ORDER-DLQ-EXCHANGE",
+        "x-dead-letter-routing-key": "ORDER-DLQ-ROUTING-KEY"
       }
     },
     {
-      "name": "message-in-queue",
+      "name": "ORDER-DLQ-QUEUE",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
-      "arguments": {
-        "x-queue-type": "classic"
-      }
+      "arguments": {}
     }
   ],
   "exchanges": [
     {
-      "name": "message-out-exchange",
+      "name": "ORDER-EXCHANGE",
       "vhost": "/",
       "type": "direct",
       "durable": true,
@@ -66,7 +65,7 @@
       "arguments": {}
     },
     {
-      "name": "message-in-exchange",
+      "name": "ORDER-DLQ-EXCHANGE",
       "vhost": "/",
       "type": "direct",
       "durable": true,
@@ -77,19 +76,19 @@
   ],
   "bindings": [
     {
-      "source": "message-in-exchange",
+      "source": "ORDER-DLQ-EXCHANGE",
       "vhost": "/",
-      "destination": "message-in-queue",
+      "destination": "ORDER-DLQ-QUEUE",
       "destination_type": "queue",
-      "routing_key": "message-in-routing-key",
+      "routing_key": "ORDER-DLQ-ROUTING-KEY",
       "arguments": {}
     },
     {
-      "source": "message-out-exchange",
+      "source": "ORDER-EXCHANGE",
       "vhost": "/",
-      "destination": "message-out-queue",
+      "destination": "ORDER-QUEUE",
       "destination_type": "queue",
-      "routing_key": "message-out-routing-key",
+      "routing_key": "ORDER-ROUTING-KEY",
       "arguments": {}
     }
   ]

@@ -42,4 +42,6 @@ spring:
       hibernate:
         default_schema: bulk_db
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
+        jdbc:
+          batch_size: 4
+        order_updates: true

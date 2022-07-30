@@ -23,9 +23,9 @@ class OrderMessageConsumer(
 
     @RabbitListener(queues = ["ORDER-QUEUE"])
     override fun consume(message: Message) {
-        log.info("received message from message $message")
+        log.info("###received message from message $message")
         val body: OrderPayloadRequest = json.decodeFromString(String(message.body))
-        this.orderService.save(body.toVO())
-        log.info("body $body bodyVO ${body.toVO()}")
+        val orderPersistent = this.orderService.save(body.toVO())
+        log.info("body: $body \n bodyVO: ${body.toVO()} \n persistent: $orderPersistent")
     }
 }
