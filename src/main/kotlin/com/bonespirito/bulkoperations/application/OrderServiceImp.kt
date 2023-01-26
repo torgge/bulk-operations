@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class OrderServiceImp(
     @Autowired private val orderRepository: OrderRepository,
-    @Autowired private val materialRepository: MaterialRepository,
+    @Autowired private val materialRepository: MaterialRepository
 ) : OrderService {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -36,9 +36,8 @@ class OrderServiceImp(
 
             val materialsResult = materialRepository.saveAll(materialsPersistent)
 
-            return orderPersistent.toVO( materialsResult.toList() )
-
-        } catch (e:Error) {
+            return orderPersistent.toVO(materialsResult.toList())
+        } catch (e: Error) {
             log.error("${e.message}")
             throw Exception(e)
         }
@@ -58,6 +57,4 @@ class OrderServiceImp(
 
         return ordersListResult
     }
-
-
 }

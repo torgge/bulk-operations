@@ -5,7 +5,7 @@ spring:
     port: 8001
   rabbitmq:
     host: localhost
-    port: 5672
+    port: 5692
     username: admin
     password: admin
     order:
@@ -26,7 +26,7 @@ spring:
   datasource:
     username: admin
     password: admin
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5492/postgres
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5

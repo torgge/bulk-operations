@@ -9,15 +9,17 @@ import com.bonespirito.bulkoperations.infrastructure.persistence.entity.OrderPer
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
-fun Order.toPayload() = OrderPayloadRequest (
+fun Order.toPayload() = OrderPayloadRequest(
     id = this.id,
     items = this.items.map { it.toPayload() },
     createdAt = this.createdAt.format(ISO_LOCAL_DATE_TIME)
 )
 
-fun Order.toPersistent() = OrderPersistent (
-    createdAt = this.createdAt
-)
+fun Order.toPersistent() =
+    OrderPersistent(
+        id = this.id ?: 0L,
+        createdAt = this.createdAt
+    )
 
 fun OrderPayloadRequest.toVO() = Order(
     id = this.id,
@@ -31,7 +33,7 @@ fun OrderPersistent.toVO(items: List<MaterialPersistent>) = Order(
     createdAt = this.createdAt
 )
 
-fun Material.toPayload() = MaterialPayloadRequestItem (
+fun Material.toPayload() = MaterialPayloadRequestItem(
     id = this.id,
     skuCode = this.skuCode,
     quantity = this.quantity,
@@ -61,4 +63,3 @@ fun MaterialPersistent.toVO() = Material(
     quantity = this.quantity,
     brand = this.brand
 )
-
