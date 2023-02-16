@@ -1,3 +1,4 @@
+import { check } from 'k6';
 import http from 'k6/http';
 
 const IP = '192.168.0.164'
@@ -54,7 +55,16 @@ export default function () {
         tags: { name: 'POST-ENVERS' }
     };
 
-    http.post(url, payloadOne, params);
-    http.post(url, payloadTwo, params);
-    http.post(url, payloadThree, params);
+    const resOne = http.post(url, payloadOne, params);
+    check(resOne, {
+        'is status 200': (r) => r.status === 201,
+    });
+    const resTwo = http.post(url, payloadTwo, params);
+    check(resTwo, {
+        'is status 200': (r) => r.status === 201,
+    });
+    const resThree = http.post(url, payloadThree, params);
+    check(resThree, {
+        'is status 200': (r) => r.status === 201,
+    });
 }
