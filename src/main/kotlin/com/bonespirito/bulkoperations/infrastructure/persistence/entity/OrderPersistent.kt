@@ -12,7 +12,7 @@ import javax.persistence.*
 @AuditTable(value = "order_history")
 class OrderPersistent(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     val id: Long = 0L,
     @CreatedDate
@@ -25,7 +25,7 @@ class OrderPersistent(
 @AuditTable(value = "material_history")
 class MaterialPersistent(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     val id: Long? = 0L,
     @Column

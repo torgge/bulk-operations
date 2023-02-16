@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class OrderServiceImp(
     @Autowired private val orderRepository: OrderRepository,
-    @Autowired private val materialRepository: MaterialRepository
+    @Autowired private val materialRepository: MaterialRepository,
 ) : OrderService {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -30,7 +30,7 @@ class OrderServiceImp(
 
             val materialsPersistent = order.items.map {
                 it.copy(
-                    orderId = orderResult.id
+                    orderId = orderResult.id,
                 ).toPersistent()
             }
 
