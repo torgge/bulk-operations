@@ -37,3 +37,9 @@ curl -X POST --location "http://localhost:8080/orders" \
           ]
         }"
 ```
+
+## K6
+
+```shell
+docker run --rm -i grafana/k6 run - <script.js
+```
