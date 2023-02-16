@@ -21,6 +21,8 @@ class OrderResource(
         @RequestBody message: Order,
     ): HttpEntity<Any?> {
         messageService.produce(message.toPayload())
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(message)
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(message)
     }
 }
